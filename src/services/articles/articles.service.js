@@ -2,6 +2,7 @@
 const createService = require('feathers-nedb');
 const createModel = require('../../models/articles.model');
 const hooks = require('./articles.hooks');
+const articleResponse = require('../../middleware/article-response')
 
 module.exports = function (app) {
   const Model = createModel(app);
@@ -13,8 +14,8 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/articles', createService(options));
-  // re-export the posts service on the /users/:userId/posts route
+  app.use('/articles', createService(options),articleResponse);
+  // re-export the feed service on the /articles/feed route
   app.use('/articles/feed', app.service('articles/feed'));
 
   // Get our initialized service so that we can register hooks

@@ -24,7 +24,7 @@ module.exports = function (options = {}) {
 };
 
 function patchArticle(context,id,articlenew) {
-  let article = context.app.service('articles').patch(id,articlenew,{donotrunarticleresponse: true});
+  let article = context.app.service('articles').patch(id,articlenew);
   article.catch(function () {
     console.log("Promise Catch");
   });

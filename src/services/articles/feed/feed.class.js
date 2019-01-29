@@ -74,7 +74,6 @@ class Service {
       thequery.query.$skip = params.query.offset;
     }
     thequery.query.userId = {$in: following};
-    thequery.donotrunarticleresponse = true;
     let article = this.app.service('articles').find(thequery);
 
     article.catch(function () {

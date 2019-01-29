@@ -41,8 +41,7 @@ module.exports = function (options = {}) {
 };
 
 async function getFavoritedArticles(context,userId) {
-  let thequery = {donotrunarticleresponse: true};
-  thequery.query = { favoritedList: userId };
+  let thequery = {query: { favoritedList: userId }};
   if (context.params.query.$limit) {
     thequery.query.$limit = context.params.query.$limit;
   }

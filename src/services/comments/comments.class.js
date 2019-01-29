@@ -68,7 +68,6 @@ class Service {
 
   async remove (id, params) {
     let thequery = {
-        donotrunarticleresponse: true,
       query: {
         slug: params.route.slug
       }

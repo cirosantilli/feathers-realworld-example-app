@@ -39,7 +39,7 @@ class Service {
       articleupdate.favorited = true;
       articleupdate.favoritesCount = articleupdate.favoritedList.length;
 
-      return await this.app.service('articles').patch(article.data[0]._id,articleupdate,{donotrunarticleresponse: true});
+      return await this.app.service('articles').patch(article.data[0]._id,articleupdate);
     }
     throw new ferrors.NotFound("Article not found");
   }
@@ -67,7 +67,7 @@ class Service {
         articleupdate.favorited = favoritelist.length > 0 ? true : false;
         articleupdate.favoritedList = favoritelist;
         articleupdate.favoritesCount = articleupdate.favoritedList.length;
-        return await this.app.service('articles').patch(article.data[0]._id,articleupdate,{donotrunarticleresponse: true});
+        return await this.app.service('articles').patch(article.data[0]._id,articleupdate);
       }
     }
 

@@ -27,7 +27,7 @@ module.exports = {
   },
 
   after: {
-    all: [articleResponse()],
+    all: [],
     find: [],
     get: [],
     create: [],

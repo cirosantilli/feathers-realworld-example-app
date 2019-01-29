@@ -64,7 +64,6 @@ async function getAuthorsAndFavorite(context,thelist) {
 function getArticles(context,theslug) {
 
   let article =   context.app.service('articles').find({
-    donotrunarticleresponse: true,
     query: {
       slug: theslug
     }
