@@ -11,7 +11,7 @@ const express = require('@feathersjs/express');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-// Connect to your MongoDB instance(s)
+// Connect to your MongoDB instance(s) using env variable
 console.log(process.env.MONGODB_FEATHERS_REALWORLD);
 mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true });
 
