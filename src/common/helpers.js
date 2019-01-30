@@ -49,8 +49,8 @@ async function getAuthorsAndFavorite(context,thelist) {
       article.author = {username: authors[index].data[0].username, bio: authors[index].data[0].bio ? authors[index].data[0].bio : null, image: authors[index].data[0].image ? authors[index].data[0].image : null, following: false};
       article.favorited = false;
       if (context.params.user) {
-        article.author.following = context.params.user.followingList.indexOf(article.userId) != -1 ? true : false;
-        article.favorited = article.favoritedList && article.favoritedList.indexOf(context.params.user._id) != -1 ? true : false;
+        article.author.following = findIndex(context.params.user.followingList,article.userId) != -1 ? true : false;
+        article.favorited = article.favoritedList && findIndex(article.favoritedList,context.params.user._id) != -1 ? true : false;
       }
       delete article.favoritedList;
       delete article.commentid;
@@ -75,6 +75,11 @@ function getArticles(context,theslug) {
   return article;
 }
 
+
+function findIndex(theList,theElement) {
+  return theList.findIndex(function(element) {return element.toString() == this.tofind;},{tofind: theElement});
+}
+
 module.exports.getAuthor = getAuthor;
 module.exports.getAuthorsAndFavorite = getAuthorsAndFavorite;
 module.exports.getAuthorByName = getAuthorByName;
@@ -82,3 +87,4 @@ module.exports.getUserByName = getUserByName;
 module.exports.getArticles = getArticles;
 module.exports.getSlug = getSlug;
 module.exports.getAnId = getAnId;
+module.exports.findIndex = findIndex;

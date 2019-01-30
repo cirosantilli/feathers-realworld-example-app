@@ -16,7 +16,7 @@ module.exports = function (options = {}) {
           username: userss.username,
           bio: userss.bio ? userss.bio : null,
           image: userss.image ? userss.image : null,
-          following: userss.followingList.indexOf(author.data[0]._id) != -1 ? true : false
+          following: helpers.findIndex(userss.followingList,author.data[0]._id) != -1 ? true : false
         };
         context.result = result;
         if (context.method == "create") {

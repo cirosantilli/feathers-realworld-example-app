@@ -25,7 +25,7 @@ class Service {
     let user2 = {};
     user2.followingList = [user1.data[0]._id];
     if (params.user.followingList) {
-      if (params.user.followingList.indexOf(user1.data[0]._id) == -1) {
+      if (helpers.findIndex(params.user.followingList,user1.data[0]._id) == -1) {
         user2.followingList = params.user.followingList.concat(user2.followingList);
       } else {
         user2.followingList = params.user.followingList;
@@ -45,7 +45,7 @@ class Service {
   async remove (id, params) {
     let user1 = await helpers.getUserByName(this,params.route.username);
     let userlist = params.user.followingList;
-    let index = userlist.indexOf(user1.data[0]._id);
+    let index = helpers.findIndex(userlist,user1.data[0]._id);
     if (index != -1){
       userlist.splice(index,1);
     }

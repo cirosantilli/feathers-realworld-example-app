@@ -17,6 +17,8 @@ module.exports = function (options = {}) {
       delete context.result.email;
       delete context.result._id;
       delete context.result.followingList;
+      delete context.result.image;
+      delete context.result.bio;
     }
     return context;
   };

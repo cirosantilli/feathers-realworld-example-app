@@ -9,7 +9,12 @@ const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 
-
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+// Connect to your MongoDB instance(s)
+// monoglab feathers_realworld_test, feathers, 34Ravensecret*
+console.log(process.env.MONGODB_FEATHERS_REALWORLD);
+mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true });
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -34,7 +39,6 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);

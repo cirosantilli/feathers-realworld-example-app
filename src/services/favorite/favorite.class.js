@@ -30,7 +30,7 @@ class Service {
 
     if (article && article.data && article.data.length) {
       if (article.data[0].favoritedList) {
-        if (article.data[0].favoritedList.indexOf(user1.data[0]._id) == -1) {
+        if (helpers.findIndex(article.data[0].favoritedList,user1.data[0]._id) == -1) {
           articleupdate.favoritedList = article.data[0].favoritedList.concat(articleupdate.favoritedList);
         } else {
           articleupdate.favoritedList = article.data[0].favoritedList;
@@ -59,7 +59,7 @@ class Service {
       if (article.data[0].favoritedList) {
         let favoritelist = article.data[0].favoritedList;
         let user1 = await helpers.getUserByName(this,params.user.username);
-        let index = favoritelist.indexOf(user1.data[0]._id);
+        let index = helpers.findIndex(favoritelist,user1.data[0]._id);
         if (index != -1){
           favoritelist.splice(index,1);
         }

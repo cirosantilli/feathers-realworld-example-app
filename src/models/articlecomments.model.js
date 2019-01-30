@@ -1,13 +1,16 @@
-const NeDB = require('nedb');
-const path = require('path');
+const mongoose = require('mongoose');
 
 module.exports = function (app) {
-  const dbPath = app.get('nedb');
-  const Model = new NeDB({
-    filename: path.join(dbPath, 'articlecomments.db'),
-    autoload: true,
-    timestampData: true
+  const Schema = mongoose.Schema;
+  const CommentsSchema = new Schema({
+    body: String,
+    articleId: Schema.Types.ObjectId,
+    userId: Schema.Types.ObjectId,
+    id: Number
+  },
+  {
+    timestamps: true
   });
-
+  const Model = mongoose.model('articlecomments', CommentsSchema);
   return Model;
 };

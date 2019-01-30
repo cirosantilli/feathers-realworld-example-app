@@ -15,7 +15,7 @@ module.exports = function (options = {}) {
         if (context.params.user) {
           let author = await helpers.getAuthorByName(context,context.params.user.username);
           if (author.data && author.data.length) {
-            if (author.data[0].followingList.indexOf(userss._id) != -1) {
+            if (helpers.findIndex(author.data[0].followingList,userss._id) != -1) {
               following = true;
             }
           }

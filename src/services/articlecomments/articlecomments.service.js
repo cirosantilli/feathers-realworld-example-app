@@ -1,5 +1,5 @@
 // Initializes the `articlecomments` service on path `/articlecomments`
-const createService = require('feathers-nedb');
+const createService = require('feathers-mongoose');
 const createModel = require('../../models/articlecomments.model');
 const hooks = require('./articlecomments.hooks');
 
@@ -9,6 +9,7 @@ module.exports = function (app) {
 
   const options = {
     Model,
+    lean: true,
     paginate
   };
 

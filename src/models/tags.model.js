@@ -1,12 +1,10 @@
-const NeDB = require('nedb');
-const path = require('path');
+const mongoose = require('mongoose');
 
 module.exports = function (app) {
-  const dbPath = app.get('nedb');
-  const Model = new NeDB({
-    filename: path.join(dbPath, 'tags.db'),
-    autoload: true
+  const Schema = mongoose.Schema;
+  const TagsSchema = new Schema({
+    tags: [String]
   });
-
+  const Model = mongoose.model('tags', TagsSchema);
   return Model;
 };
