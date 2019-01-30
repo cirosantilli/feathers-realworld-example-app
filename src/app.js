@@ -12,7 +12,6 @@ const express = require('@feathersjs/express');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // Connect to your MongoDB instance(s)
-// monoglab feathers_realworld_test, feathers, 34Ravensecret*
 console.log(process.env.MONGODB_FEATHERS_REALWORLD);
 mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true });
 
