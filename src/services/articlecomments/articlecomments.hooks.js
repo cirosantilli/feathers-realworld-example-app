@@ -4,12 +4,12 @@ const hideMethod = require('../../hooks/hide-method');
 
 module.exports = {
   before: {
-    all: [ ],
+    all: [hideMethod()],
     find: [],
     get: [],
     create: [authenticate('jwt')],
-    update: [authenticate('jwt'),hideMethod()],
-    patch: [authenticate('jwt'),hideMethod()],
+    update: [authenticate('jwt')],
+    patch: [authenticate('jwt')],
     remove: [authenticate('jwt')]
   },
 
