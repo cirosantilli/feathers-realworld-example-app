@@ -1,5 +1,4 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const articleResponse = require('../../hooks/article-response');
 
 module.exports = {
   before: {
@@ -16,10 +15,10 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [articleResponse()],
+    create: [],
     update: [],
     patch: [],
-    remove: [articleResponse()]
+    remove: []
   },
 
   error: {

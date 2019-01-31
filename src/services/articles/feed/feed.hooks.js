@@ -1,6 +1,4 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const articleResponse = require('../../../hooks/article-response');
-
 const feedResponse = require('../../../hooks/feed-response');
 
 module.exports = {

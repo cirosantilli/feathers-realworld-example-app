@@ -3,8 +3,6 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 
 const articleCreate = require('../../hooks/article-create');
 
-const articleResponse = require('../../hooks/article-response');
-
 const articleFind = require('../../hooks/article-find');
 
 const articleGet = require('../../hooks/article-get');

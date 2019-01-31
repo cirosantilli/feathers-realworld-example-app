@@ -1,6 +1,7 @@
 // Initializes the `favorite` service on path `/favorite`
 const createService = require('./favorite.class.js');
 const hooks = require('./favorite.hooks');
+const articleResponse = require('../../middleware/article-response')
 
 module.exports = function (app) {
 
@@ -15,7 +16,7 @@ module.exports = function (app) {
 
 
     // re-export the posts service on the /users/:userId/posts route
-    app.use('/articles/:slug/favorite', app.service('favorite'));
+    app.use('/articles/:slug/favorite', app.service('favorite'),articleResponse);
 
     // A hook that updates `data` with the route parameter
     function mapSlugToData(context) {
