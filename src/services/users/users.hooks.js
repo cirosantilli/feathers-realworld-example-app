@@ -5,9 +5,8 @@ const {
 } = require('@feathersjs/authentication-local').hooks;
 
 const processUser = require('../../hooks/process-user');
-const processResponse = require('../../hooks/process-response');
-
 const usersResponse = require('../../hooks/users-response');
+const hideMethod = require('../../hooks/hide-method');
 
 module.exports = {
   before: {
@@ -17,7 +16,7 @@ module.exports = {
     create: [ hashPassword() ],
     update: [ hashPassword(),  authenticate('jwt') ],
     patch: [ hashPassword(),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    remove: [ authenticate('jwt'),hideMethod() ]
   },
 
   after: {
