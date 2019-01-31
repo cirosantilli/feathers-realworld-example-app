@@ -1,6 +1,7 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 const helpers = require('../common/helpers.js');
+const ferrors = require('@feathersjs/errors');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
@@ -9,7 +10,7 @@ module.exports = function (options = {}) {
     let article = await helpers.getArticles(context,context.id);
 
     if (!article.data || ! article.data.length){
-      return context;
+        throw new ferrors.NotFound("Article not found");
     }
 
     if (context.data.article.title && context.data.article.title != article.data[0].title) {

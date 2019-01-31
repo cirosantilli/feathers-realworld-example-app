@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const helpers = require('../../common/helpers.js');
+const ferrors = require('@feathersjs/errors');
 
 class Service {
   constructor (options) {
@@ -12,6 +13,9 @@ class Service {
 
   async create (data, params) {
     let user1 = await helpers.getUserByName(this,data.username);
+    if (!user1.data || !user1.data.length) {
+      throw new ferrors.NotFound("User not found");
+    }
     let user2 = {};
     user2.followingList = [user1.data[0]._id];
     if (params.user.followingList) {
@@ -21,11 +25,16 @@ class Service {
         user2.followingList = params.user.followingList;
       }
     }
-    return this.app.service('users').patch(params.user._id,user2);
+    await this.app.service('users').patch(params.user._id,user2);
+    params.user.followingList = user2.followingList;
+    return user1;
   }
 
   async remove (id, params) {
     let user1 = await helpers.getUserByName(this,params.route.username);
+    if (!user1.data || !user1.data.length) {
+      throw new ferrors.NotFound("User not found");
+    }
     let userlist = params.user.followingList;
     let index = helpers.findIndex(userlist,user1.data[0]._id);
     if (index != -1){
@@ -33,7 +42,9 @@ class Service {
     }
     let user2 = {};
     user2.followingList = userlist;
-    return this.app.service('users').patch(params.user._id,user2);
+    await this.app.service('users').patch(params.user._id,user2);
+    params.user.followingList = user2.followingList;
+    return user1;
   }
 
 }

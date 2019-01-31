@@ -7,16 +7,14 @@ module.exports = function (options = {}) {
   return async context => {
     if (context.result) {
       let result = {};
+      let author = context.result;
 
-      let userss = context.result;
-
-      let author = await helpers.getAuthorByName(context,context.params.route.username);
       if (author && author.data && author.data.length) {
         result.profile =  {
-          username: userss.username,
-          bio: userss.bio ? userss.bio : null,
-          image: userss.image ? userss.image : null,
-          following: helpers.findIndex(userss.followingList,author.data[0]._id) != -1 ? true : false
+          username: author.data[0].username,
+          bio: author.data[0].bio ? author.data[0].bio : null,
+          image: author.data[0].image ? author.data[0].image : null,
+          following: helpers.findIndex(context.params.user.followingList,author.data[0]._id) != -1 ? true : false
         };
         context.result = result;
         if (context.method == "create") {
