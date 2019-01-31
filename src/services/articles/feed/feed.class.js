@@ -26,7 +26,7 @@ class Service {
     return articles;
   }
 
-  async get (id, params) {
+/*  async get (id, params) {
     return {};
   }
 
@@ -48,7 +48,7 @@ class Service {
 
   async remove (id, params) {
     return { id };
-  }
+  }*/
 
   async getAuthors(authornames) {
     let author =  this.app.service('users').find({

@@ -7,11 +7,11 @@ class Service {
   setup(app) {
     this.app = (app);
   }
-
+/*
   async find (params) {
    return [];
   }
-
+*/
   async get (id, params) {
 
     return  this.app.service('users').find({
@@ -29,7 +29,7 @@ class Service {
 
     return data;
   }
-
+/*
   async update (id, data, params) {
     return data;
   }
@@ -41,8 +41,8 @@ class Service {
   async remove (id, params) {
     return { id };
   }
+  */
 }
-
 module.exports = function (options) {
   return new Service(options);
 };

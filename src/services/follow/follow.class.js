@@ -10,7 +10,7 @@ class Service {
     this.app = (app);
   }
 
-  async find (params) {
+/*  async find (params) {
     return [];
   }
 
@@ -19,7 +19,7 @@ class Service {
       id, text: `A new message with ID: ${id}!`
     };
   }
-
+*/
   async create (data, params) {
     let user1 = await helpers.getUserByName(this,data.username);
     let user2 = {};
@@ -33,7 +33,7 @@ class Service {
     }
     return this.app.service('users').patch(params.user._id,user2);
   }
-
+/*
   async update (id, data, params) {
     return data;
   }
@@ -41,7 +41,7 @@ class Service {
   async patch (id, data, params) {
     return data;
   }
-
+*/
   async remove (id, params) {
     let user1 = await helpers.getUserByName(this,params.route.username);
     let userlist = params.user.followingList;
