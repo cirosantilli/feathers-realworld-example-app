@@ -20,14 +20,6 @@ class Service {
     return result;
   }
 
-  async create (data, params) {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
-
-    return data;
-  }
-
   async update (id, data, params) {
     // RealWorld
     return this.app.service('users').patch(params.user._id,data.user);
