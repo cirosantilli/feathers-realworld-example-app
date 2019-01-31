@@ -1,5 +1,4 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const feedResponse = require('../../../hooks/feed-response');
 
 module.exports = {
   before: {
@@ -14,7 +13,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [feedResponse()],
+    find: [],
     get: [],
     create: [],
     update: [],
