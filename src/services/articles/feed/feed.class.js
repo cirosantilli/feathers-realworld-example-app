@@ -42,7 +42,7 @@ class Service {
   }
 
   async getFeed(params,following) {
-    let thequery = {query: {}};
+    let thequery = {query: {$sort: {createdAt: -1}}};
     if (params.query.limit) {
       thequery.query.$limit = params.query.limit;
     }

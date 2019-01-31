@@ -6,7 +6,7 @@ const authenticateif = require('../../hooks/authenticateif');
 module.exports = {
   before: {
     all: [],
-    find: [authenticateif('jwt')],
+    find: [authenticateif()],
     get: [],
     create: [authenticate('jwt')],
     update: [authenticate('jwt')],

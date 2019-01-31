@@ -19,7 +19,8 @@ class Service {
     if (article && article.data && article.data.length) {
       return this.app.service('articlecomments').find({
         query: {
-          articleId: article.data[0]._id
+          articleId: article.data[0]._id,
+          $sort: {id: 1}
         }
       });
     }
