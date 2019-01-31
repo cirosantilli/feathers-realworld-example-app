@@ -58,14 +58,6 @@ class Service {
     throw new ferrors.NotFound("Article: " + data.slug + " not found");
   }
 
-  async update (id, data, params) {
-    return data;
-  }
-
-  async patch (id, data, params) {
-    return data;
-  }
-
   async remove (id, params) {
     let thequery = {
       query: {

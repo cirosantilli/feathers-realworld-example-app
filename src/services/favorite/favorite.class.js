@@ -12,16 +12,6 @@ class Service {
     this.app = (app);
   }
 
-/*  async find (params) {
-    return [];
-  }
-
-  async get (id, params) {
-    return {
-      id, text: `A new message with ID: ${id}!`
-    };
-  }
-*/
   async create (data, params) {
     let user1 = await helpers.getUserByName(this,params.user.username);
     let articleupdate = {};
@@ -43,15 +33,7 @@ class Service {
     }
     throw new ferrors.NotFound("Article not found");
   }
-/*
-  async update (id, data, params) {
-    return data;
-  }
 
-  async patch (id, data, params) {
-    return data;
-  }
-*/
   async remove (id, params) {
     let article = await helpers.getArticles(this,params.route.slug);
 
