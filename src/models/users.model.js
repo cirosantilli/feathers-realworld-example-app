@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 module.exports = function (app) {
   const Schema = mongoose.Schema;
   const UsersSchema = new Schema({
-    username: { type: String, index: true, unique: true },
-    email: { type: String, index: true, unique: true },
+    username: { type: String, index: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9_-]+$/, 'is invalid'] },
+    email: { type: String, index: true, unique: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'] },
     password: String,
     bio: String,
     image: String,

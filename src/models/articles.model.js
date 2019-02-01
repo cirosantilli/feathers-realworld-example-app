@@ -9,7 +9,7 @@ module.exports = function (app) {
     tagList: [String],
     userId: Schema.Types.ObjectId,
     slug: String,
-    favoritesCount: Number,
+    favoritesCount: { type: Number, default: 0},
     favoritedList: [Schema.Types.ObjectId],
     commentid: { type: Number, default: 0}
   },
