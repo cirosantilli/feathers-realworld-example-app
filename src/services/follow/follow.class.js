@@ -14,7 +14,7 @@ class Service {
   async create (data, params) {
     let user1 = await helpers.getUserByName(this,data.username);
     if (!user1.data || !user1.data.length) {
-      throw new ferrors.NotFound("User not found");
+      throw new ferrors.NotFound('User not found');
     }
     let user2 = {};
     user2.followingList = [user1.data[0]._id];
@@ -33,7 +33,7 @@ class Service {
   async remove (id, params) {
     let user1 = await helpers.getUserByName(this,params.route.username);
     if (!user1.data || !user1.data.length) {
-      throw new ferrors.NotFound("User not found");
+      throw new ferrors.NotFound('User not found');
     }
     let userlist = params.user.followingList;
     let index = helpers.findIndex(userlist,user1.data[0]._id);

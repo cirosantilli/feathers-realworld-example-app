@@ -16,15 +16,15 @@ module.exports = function (options = {}) {
 
     let resultdata2  = await getAuthors(context,resultdata,authors);
 
-    if (context.method == "find" ||  resultdata2.length > 1) {
+    if (context.method == 'find' ||  resultdata2.length > 1) {
       result.comments = resultdata2;
-        } else if (resultdata2.length > 0) {
+    } else if (resultdata2.length > 0) {
       result.comment = resultdata2[0];
     } else {
       result.comments = [];
     }
 
-    context.result = result
+    context.result = result;
     return context;
   };
 };

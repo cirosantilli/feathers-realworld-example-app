@@ -10,7 +10,7 @@ module.exports = function (options = {}) {
         // RealWorld -- peel off the user wrapper and add strategy if missing
         var strategy = user2.strategy;
         if (!strategy) {
-          user2.strategy = "local";
+          user2.strategy = 'local';
         }
         context.data = user2;
       }

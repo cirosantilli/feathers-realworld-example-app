@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose');
 
 module.exports = function (app) {

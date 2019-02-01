@@ -13,15 +13,15 @@ module.exports = function (options = {}) {
     context.data.article.commentid = 0;
 
     if (context.data.article.tagList) {
-      let tagret = await context.app.service("tags").find();
+      let tagret = await context.app.service('tags').find();
 
       if (tagret.tags && tagret.tags.length > 0 ) {
         tagret.tags =  Array.from(new Set(tagret.tags.concat(context.data.article.tagList)));
-        let ret = await context.app.service("tags").update(tagret._id,tagret);
+        await context.app.service('tags').update(tagret._id,tagret);
       } else {
         let tags = {};
         tags.tags = context.data.article.tagList;
-        let ret = await context.app.service("tags").create(tags);
+        await context.app.service('tags').create(tags);
       }
     }
 

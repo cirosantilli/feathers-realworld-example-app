@@ -12,8 +12,8 @@ module.exports = function (options = {}) {
         username: context.result.username ? context.result.username : context.params.user.username,
         bio: context.params.user.bio ? context.params.user.bio : null,
         image: context.params.user.image ? context.params.user.image : null
-        };
-        
+      };
+
       let result = {};
       result.user = user;
       context.result = result;

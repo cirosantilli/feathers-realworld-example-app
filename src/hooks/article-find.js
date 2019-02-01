@@ -31,7 +31,6 @@ module.exports = function (options = {}) {
       }
     }
     if (context.params.query.favorited) {
-      let favoritedarticles = [];
       let user1 = await helpers.getAuthorByName(context,context.params.query.favorited);
       if (user1.data && user1.data.length > 0) {
         delete context.params.query.favorited;

@@ -20,15 +20,15 @@ module.exports = function () {
     if(context.error && !context.result) {
       logger.error(context.error.stack);
     }
-    
+
     if (context.params && context.params.headers) {
-    let authorize = context.params.headers.authorization;
-    if (authorize) {
-      let index = authorize.indexOf("Token ");
-      if (index != -1) {
-        context.params.headers.authorization = authorize.slice(6);
+      let authorize = context.params.headers.authorization;
+      if (authorize) {
+        let index = authorize.indexOf('Token ');
+        if (index != -1) {
+          context.params.headers.authorization = authorize.slice(6);
+        }
       }
-    }
     }
     return context;
   };

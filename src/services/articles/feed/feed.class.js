@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+
+const ferrors = require('@feathersjs/errors');
+
 class Service {
   constructor (options) {
     this.options = options || {};
@@ -35,7 +38,7 @@ class Service {
       }
     });
     author.catch(function () {
-      console.log("Promise Catch");
+      throw new ferrors.NotFound('Author not found');
     });
 
     return author;
@@ -53,7 +56,7 @@ class Service {
     let article = this.app.service('articles').find(thequery);
 
     article.catch(function () {
-      console.log("Promise Catch");
+      throw new ferrors.NotFound('Articles not found');
     });
 
     return article;

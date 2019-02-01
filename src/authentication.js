@@ -7,7 +7,6 @@ const authenticateResponse = require('./hooks/authenticate-response');
 
 module.exports = function (app) {
   const config = app.get('authentication');
-  console.log(config);
   // Set up authentication with the secret
   app.configure(authentication(config));
   app.configure(jwt());

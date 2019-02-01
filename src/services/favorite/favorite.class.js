@@ -31,7 +31,7 @@ class Service {
 
       return await this.app.service('articles').patch(article.data[0]._id,articleupdate);
     }
-    throw new ferrors.NotFound("Article not found");
+    throw new ferrors.NotFound('Article not found');
   }
 
   async remove (id, params) {
@@ -53,7 +53,7 @@ class Service {
       }
     }
 
-    throw new ferrors.NotFound("Article not found");
+    throw new ferrors.NotFound('Article not found');
   }
 }
 

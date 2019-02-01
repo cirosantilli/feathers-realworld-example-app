@@ -24,7 +24,7 @@ class Service {
         }
       });
     }
-    throw new ferrors.NotFound("Article: " + params.query.slug + " not found");
+    throw new ferrors.NotFound('Article: ' + params.query.slug + ' not found');
   }
 
   async get (id, params) {
@@ -39,7 +39,7 @@ class Service {
         }
       });
     }
-    throw new ferrors.NotFound("Article: " + params.query.slug + " not found");
+    throw new ferrors.NotFound('Article: ' + params.query.slug + ' not found');
   }
 
   async create (data, params) {
@@ -56,7 +56,7 @@ class Service {
       let articlepatched = await this.app.service('articles').patch(article.data[0]._id,articlenew);
       return this.app.service('articlecomments').create(comment);
     }
-    throw new ferrors.NotFound("Article: " + data.slug + " not found");
+    throw new ferrors.NotFound('Article: ' + data.slug + ' not found');
   }
 
   async remove (id, params) {
@@ -65,22 +65,22 @@ class Service {
         slug: params.route.slug
       }
     };
-    let article = await this.app.service("articles").find(thequery);
+    let article = await this.app.service('articles').find(thequery);
 
     if (article && article.data && article.data.length) {
       let comment = await this.app.service('articlecomments').find({
         query: {
-            articleId: article.data[0]._id,
-            id: parseInt(id)
+          articleId: article.data[0]._id,
+          id: parseInt(id)
         }
       });
 
       if (comment.data && comment.data.length > 0) {
-          return this.app.service('articlecomments').remove(comment.data[0]._id);
+        return this.app.service('articlecomments').remove(comment.data[0]._id);
       }
     }
 
-    throw new ferrors.NotFound("Comment not found");
+    throw new ferrors.NotFound('Comment not found');
   }
 }
 

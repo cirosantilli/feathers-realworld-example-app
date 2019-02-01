@@ -2,7 +2,7 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const processResponse = require('../../hooks/process-response');
 
 const {
-  hashPassword, protect
+  protect
 } = require('@feathersjs/authentication-local').hooks;
 
 module.exports = {

@@ -5,7 +5,7 @@
 module.exports = function (options = {}) {
   return async context => {
     if (context.data) {
-      user = context.data.user;
+      let user = context.data.user;
 
       if (user) {
         user.bio = user.bio ? user.bio : null;

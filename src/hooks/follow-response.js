@@ -17,8 +17,8 @@ module.exports = function (options = {}) {
           following: helpers.findIndex(context.params.user.followingList,author.data[0]._id) != -1 ? true : false
         };
         context.result = result;
-        if (context.method == "create") {
-          context.statusCode = "200";
+        if (context.method == 'create') {
+          context.statusCode = '200';
         }
       }
     }

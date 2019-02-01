@@ -12,7 +12,7 @@ module.exports = function (options = {}) {
     if (article && article.data && article.data.length) {
       context.id = article.data[0]._id;
     } else {
-      throw new ferrors.NotFound("Article not found");
+      throw new ferrors.NotFound('Article not found');
     }
 
     return context;

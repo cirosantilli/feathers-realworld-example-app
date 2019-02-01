@@ -10,7 +10,7 @@ module.exports = function (options = {}) {
     let article = await helpers.getArticles(context,context.id);
 
     if (!article.data || ! article.data.length){
-        throw new ferrors.NotFound("Article not found");
+      throw new ferrors.NotFound('Article not found');
     }
 
     if (context.data.article.title && context.data.article.title != article.data[0].title) {
@@ -27,7 +27,7 @@ module.exports = function (options = {}) {
 function patchArticle(context,id,articlenew) {
   let article = context.app.service('articles').patch(id,articlenew);
   article.catch(function () {
-    console.log("Promise Catch");
+    throw new ferrors.NotFound('Article not updated');
   });
 
   return article;

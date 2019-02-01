@@ -29,7 +29,7 @@ module.exports = function (options = {}) {
         };
         context.result = result;
       } else {
-        throw new ferrors.NotFound("User not found");
+        throw new ferrors.NotFound('User not found');
       }
     }
 

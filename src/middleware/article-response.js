@@ -9,7 +9,7 @@ module.exports = async function (req,res,next) {
 
   let result = {};
 
-  if (!(res.hook.params.query && res.hook.params.query.slug) && (res.hook.method == "find" || resultdata2.length > 1)) {
+  if (!(res.hook.params.query && res.hook.params.query.slug) && (res.hook.method == 'find' || resultdata2.length > 1)) {
     result.articles = resultdata2;
     result.articlesCount = res.hook.result.total ? res.hook.result.total : 0;
   } else if (resultdata2.length > 0) {

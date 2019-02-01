@@ -24,15 +24,15 @@ module.exports = function (app) {
   }
 
   // For the new route, map the `:userId` route parameter to the query in a hook
-app.service('profiles/:username/follow').hooks({
-  before: {
-    find(context) {
-      context.params.query.username = context.params.route.username;
-    },
-    create: mapUserNameToData,
-    remove: mapUserNameToData
-  }
-});
+  app.service('profiles/:username/follow').hooks({
+    before: {
+      find(context) {
+        context.params.query.username = context.params.route.username;
+      },
+      create: mapUserNameToData,
+      remove: mapUserNameToData
+    }
+  });
 
   // Get our initialized service so that we can register hooks
   const service = app.service('follow');

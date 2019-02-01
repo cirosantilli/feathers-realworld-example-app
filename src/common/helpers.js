@@ -1,7 +1,8 @@
-var slug = require('slug');
+const slug = require('slug');
+const ferrors = require('@feathersjs/errors');
 
 function getSlug(title) {
-  return slug(title) + "_" + getAnId();
+  return slug(title) + '_' + getAnId();
 }
 
 function getAnId() {
@@ -15,7 +16,7 @@ function getAuthor(context,userId) {
     }
   });
   author.catch(function () {
-    console.log("Promise Catch");
+    throw new ferrors.NotFound('Author not found');
   });
 
   return author;
@@ -32,7 +33,7 @@ function getUserByName(context,username) {
     }
   });
   author.catch(function () {
-    console.log("Promise Catch");
+    throw new ferrors.NotFound('User not found');
   });
 
   return author;
@@ -69,7 +70,7 @@ function getArticles(context,theslug) {
     }
   });
   article.catch(function () {
-    console.log("Promise Catch");
+    throw new ferrors.NotFound('Article not found');
   });
 
   return article;
