@@ -7,14 +7,13 @@ const helpers = require('../common/helpers.js');
 module.exports = function (options = {}) {
   return async context => {
     let resultdata = [];
-    let authors = [];
     let result = {};
 
     if (context.result.errors) {
       return context;
     }
 
-    let resultdata2  = await getAuthors(context,resultdata,authors);
+    let resultdata2  = await getAuthors(context,resultdata);
 
     if (context.method == 'find' ||  resultdata2.length > 1) {
       result.comments = resultdata2;
@@ -29,7 +28,7 @@ module.exports = function (options = {}) {
   };
 };
 
-async function getAuthors(context,resultdata,authors) {
+async function getAuthors(context,resultdata) {
   let theresult = context.result;
 
   if (!theresult.data) {
@@ -39,9 +38,10 @@ async function getAuthors(context,resultdata,authors) {
 
   for (let index = 0; index < theresult.data.length; index++) {
     let comment = theresult.data[index];
-    authors.push(await helpers.getAuthor(context,comment.userId));
-    if (authors[index].data && authors[index].data.length) {
-      comment.author = {username: authors[index].data[0].username, bio: authors[index].data[0].bio, image: authors[index].data[0].image, following: false};
+    let theauthor = await helpers.getAuthor(context,comment.userId);
+
+    if (theauthor.data && theauthor.data.length) {
+      comment.author = {username: theauthor.data[0].username, bio: theauthor.data[0].bio, image: theauthor.data[0].image, following: false};
       if (context.params.user) {
         comment.author.following = context.params.user.followingList.indexOf(comment.userId) != -1 ? true : false;
       }
