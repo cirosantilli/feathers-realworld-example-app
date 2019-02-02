@@ -8,9 +8,18 @@ describe('\'article-update\' hook', () => {
   beforeEach(() => {
     app = feathers();
 
+    app.use('/articles', {
+      async find(data) {
+        return {data: [{_id: 1,title: data}]};
+      },
+      async patch(id,data) {
+        return data;
+      }
+    });
+
     app.use('/dummy', {
-      async get(id) {
-        return { id };
+      async update(id,data) {
+        return { data };
       }
     });
 
@@ -20,8 +29,17 @@ describe('\'article-update\' hook', () => {
   });
 
   it('runs the hook', async () => {
-    const result = await app.service('dummy').get('test');
-    
-    assert.deepEqual(result, { id: 'test' });
+    const result = await app.service('dummy').update(1,{
+      article: {
+        title: 'How to train your dragon',
+        description: 'Ever wonder how?',
+        body: 'You have to believe'
+      }
+    });
+    assert.deepEqual(result.data[0].body,'You have to believe');
+    assert.deepEqual(result.data[0].description, 'Ever wonder how?');
+    let slug = 'How-to-train-your-dragon_';
+    assert.deepEqual(result.data[0].slug.slice(0,slug.length),slug);
+    assert.deepEqual(result.data[0].title, 'How to train your dragon');
   });
 });

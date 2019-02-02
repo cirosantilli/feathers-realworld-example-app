@@ -9,8 +9,9 @@ describe('\'tag-response\' hook', () => {
     app = feathers();
 
     app.use('/dummy', {
+    // eslint-disable-next-line no-unused-vars
       async get(id) {
-        return { id };
+        return {data: [{tags: ['foo','bar'] }]};
       }
     });
 
@@ -21,7 +22,7 @@ describe('\'tag-response\' hook', () => {
 
   it('runs the hook', async () => {
     const result = await app.service('dummy').get('test');
-    
-    assert.deepEqual(result, { id: 'test' });
+
+    assert.deepEqual(result, {tags: ['foo','bar'] });
   });
 });

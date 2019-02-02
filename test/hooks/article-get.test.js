@@ -8,6 +8,13 @@ describe('\'article-get\' hook', () => {
   beforeEach(() => {
     app = feathers();
 
+    app.use('/articles', {
+      async find(data) {
+        return {data: [{_id: data.query.slug}]};
+      }
+
+    });
+
     app.use('/dummy', {
       async get(id) {
         return { id };
@@ -21,7 +28,7 @@ describe('\'article-get\' hook', () => {
 
   it('runs the hook', async () => {
     const result = await app.service('dummy').get('test');
-    
+
     assert.deepEqual(result, { id: 'test' });
   });
 });
