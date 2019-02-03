@@ -20,8 +20,6 @@ describe('\'profiles\' service', () => {
       password: 'secret'
     }}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user);
     // Makes sure the password got encrypted
     assert.ok(user.password !== 'secret');
   });
@@ -35,9 +33,6 @@ describe('\'profiles\' service', () => {
       password: 'secret'
     }}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user);
-
     // Make sure password has been removed
     assert.ok(!user.password);
   });
@@ -48,20 +43,13 @@ describe('\'profiles\' service', () => {
 
     user = await app.service('profiles').get(user.user.username, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user);
-
     // Make sure password has been removed
     assert.ok(user.profile.following === false);
   });
 
   it('cleans up', async () => {
-    // Setting `provider` indicates an external request
-
     user = await app.service('users').find({query: {username: user.profile.username}});
 
-    // eslint-disable-next-line no-console
-    console.log(user);
     await app.service('users').remove(user.data[0]._id);
 
   });

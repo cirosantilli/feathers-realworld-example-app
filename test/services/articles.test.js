@@ -23,8 +23,6 @@ describe('\'articles\' service', () => {
       password: 'secret'
     }}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user);
     // Makes sure the password got encrypted
     assert.ok(user.password !== 'secret');
   });
@@ -38,9 +36,6 @@ describe('\'articles\' service', () => {
       password: 'secret'
     }}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user);
-
     // Make sure password has been removed
     assert.ok(!user.password);
   });
@@ -51,20 +46,14 @@ describe('\'articles\' service', () => {
     token = user.user.token;
     article = await app.service('articles').create({article: {title: 'a title', description: 'adescription', body: 'abody', tagList: ['one','two','three']}}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(article);
-
     let slug = 'a-title_';
     assert.deepEqual(article.slug.slice(0,slug.length),slug);
   });
 
   it('cleans up', async () => {
-    // Setting `provider` indicates an external request
 
     user = await app.service('users').find({query: {username: user.user.username}});
 
-    // eslint-disable-next-line no-console
-    console.log(user);
     await app.service('articles').remove(article.slug);
     await app.service('users').remove(user.data[0]._id);
 

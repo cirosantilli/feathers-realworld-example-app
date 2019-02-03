@@ -49,8 +49,6 @@ describe('\'article-create\' hook', () => {
       user: {_id: 1}
     });
 
-    // eslint-disable-next-line no-console
-    console.log(result);
     assert.deepEqual(result.body,'You have to believe');
     assert.deepEqual(result.commentid, 0);
     assert.deepEqual(result.description, 'Ever wonder how?');

@@ -3,7 +3,7 @@ const app = require('../../src/app');
 
 describe('\'users\' service', () => {
   let user,user2;
-  
+
   it('registered the service', () => {
     const service = app.service('users');
 
@@ -17,8 +17,6 @@ describe('\'users\' service', () => {
       password: 'secret'
     }});
 
-    // eslint-disable-next-line no-console
-    console.log(user);
     // Makes sure the password got encrypted
     assert.ok(user.password !== 'secret');
   });
@@ -33,9 +31,6 @@ describe('\'users\' service', () => {
       password: 'secret'
     }}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user2);
-
     // Make sure password has been removed
     assert.ok(!user2.password);
   });
@@ -48,23 +43,15 @@ describe('\'users\' service', () => {
       password: 'secret'
     }}, params);
 
-    // eslint-disable-next-line no-console
-    console.log(user2);
-
     // Make sure password has been removed
     assert.ok(!user2.password);
   });
 
   it('cleans up', async () => {
-    // Setting `provider` indicates an external request
 
     user = await app.service('users').find({query: {username: user.user.username}});
     user2 = await app.service('users').find({query: {username: user2.user.username}});
 
-    // eslint-disable-next-line no-console
-    console.log(user);
-    // eslint-disable-next-line no-console
-    console.log(user2);
     await app.service('users').remove(user.data[0]._id);
     await app.service('users').remove(user2.data[0]._id);
 

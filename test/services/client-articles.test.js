@@ -38,8 +38,6 @@ describe('\'articles\' service - client', () => {
   });
 
   after(() => {
-    // eslint-disable-next-line no-console
-    console.log('Feathers application closing');
     client.logout();
     server.close();
   });
@@ -81,7 +79,7 @@ describe('\'articles\' service - client', () => {
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
 
       article = await app.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
-    
+
       assert.deepEqual(article.slug.slice(0,slug.length),slug);
 
     });
@@ -89,8 +87,6 @@ describe('\'articles\' service - client', () => {
     it('cleans up', async () => {
       let user2 = await client.service('users').find({query: {username: user.user.username},headers: {authorization: user.user.token}});
 
-      // eslint-disable-next-line no-console
-      console.log(user2);
       await app.service('articles').remove(article.slug,{headers: {authorization: user.user.token}});
       await client.service('users').remove(user2.data[0]._id,{headers: {authorization: user.user.token}});
 
