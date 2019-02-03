@@ -14,34 +14,10 @@ class Service {
   async find (params) {
     let articles = {};
 
-    if (params.user.followingList) {
-      let authors = await this.getAuthors(params.user.followingList);
-      if (authors) {
-        let followers = [];
-        authors.data.forEach(author => {
-          followers.push(author._id);
-        });
-        if (followers.length > 0) {
-          articles = await this.getFeed(params,followers);
-        }
-      }
+    if (params.user.followingList && params.user.followingList.length > 0) {
+      articles = await this.getFeed(params,params.user.followingList);
     }
     return articles;
-  }
-
-  async getAuthors(authornames) {
-    let author =  this.app.service('users').find({
-      query: {
-        _id: {
-          $in: authornames
-        }
-      }
-    });
-    author.catch(function () {
-      throw new ferrors.NotFound('Author not found');
-    });
-
-    return author;
   }
 
   async getFeed(params,following) {

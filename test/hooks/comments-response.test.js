@@ -9,9 +9,9 @@ describe('\'comments-response\' hook', () => {
     app = feathers();
 
     app.use('/users', {
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
       async find(id) {
-        return {data: [{username: 'foo', bio: 'bar',image: 'foobar', id: id}]};
+        return {data: [{username: 'foo', bio: 'bar',image: 'foobar', _id: 1},{username: 'foo', bio: 'bar',image: 'foobar', _id: 2}]};
       }
     });
 

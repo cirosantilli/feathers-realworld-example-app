@@ -36,14 +36,23 @@ async function getAuthors(context,resultdata) {
     theresult.data = [context.result];
   }
 
-  for (let index = 0; index < theresult.data.length; index++) {
-    let comment = theresult.data[index];
-    let theauthor = await helpers.getAuthor(context,comment.userId);
+  let authorids = [];
+  theresult.data.forEach(function(element) {
+    authorids.push(element.userId);
+  });
 
-    if (theauthor.data && theauthor.data.length) {
-      comment.author = {username: theauthor.data[0].username, bio: theauthor.data[0].bio, image: theauthor.data[0].image, following: false};
+  let authors = await helpers.getAuthors(context,authorids);
+
+  theresult.data.forEach(function(element) {
+    let comment = element;
+    let theauthor = authors.data.find(function(element) {
+      return element._id.toString() == this.authorid;
+    },{authorid: comment.userId});
+
+    if (theauthor) {
+      comment.author = {username: theauthor.username, bio: theauthor.bio, image: theauthor.image, following: false};
       if (context.params.user) {
-        comment.author.following = context.params.user.followingList.indexOf(comment.userId) != -1 ? true : false;
+        comment.author.following = helpers.findIndex(context.params.user.followingList,comment.userId) != -1 ? true : false;
       }
       resultdata.push(comment);
     }
@@ -51,7 +60,7 @@ async function getAuthors(context,resultdata) {
     delete comment.articleId;
     delete comment._id;
 
-  }
+  });
 
   return resultdata;
 }

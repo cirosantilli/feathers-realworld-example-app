@@ -39,15 +39,41 @@ function getUserByName(context,username) {
   return author;
 }
 
+function getAuthors(context,authorids) {
+
+  let authors =   context.app.service('users').find({
+    query: {
+      _id: {
+        $in: authorids
+      }
+    }
+  });
+  authors.catch(function () {
+    throw new ferrors.NotFound('Author not found');
+  });
+
+  return authors;
+}
+
 async function getAuthorsAndFavorite(context,thelist) {
   let resultdata = [];
-  let authors = [];
+
+  let authorids = [];
+  thelist.forEach(function(element) {
+    authorids.push(element.userId);
+  });
+
+  let authors = await getAuthors(context,authorids);
 
   for (let index = 0; index < thelist.length; index++) {
     let article = thelist[index];
-    authors.push(await getAuthor(context,article.userId));
-    if (authors[index].data && authors[index].data.length) {
-      article.author = {username: authors[index].data[0].username, bio: authors[index].data[0].bio ? authors[index].data[0].bio : null, image: authors[index].data[0].image ? authors[index].data[0].image : null, following: false};
+
+    let theauthor = authors.data.find(function(element) {
+      return element._id.toString() == this.authorid;
+    },{authorid: article.userId});
+
+    if (theauthor) {
+      article.author = {username: theauthor.username, bio: theauthor.bio ? theauthor.bio : null, image: theauthor.image ? theauthor.image : null, following: false};
       article.favorited = false;
       if (context.params.user) {
         article.author.following = findIndex(context.params.user.followingList,article.userId) != -1 ? true : false;
@@ -82,6 +108,7 @@ function findIndex(theList,theElement) {
 }
 
 module.exports.getAuthor = getAuthor;
+module.exports.getAuthors = getAuthors;
 module.exports.getAuthorsAndFavorite = getAuthorsAndFavorite;
 module.exports.getAuthorByName = getAuthorByName;
 module.exports.getUserByName = getUserByName;
