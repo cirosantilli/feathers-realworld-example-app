@@ -6,7 +6,7 @@ const {
 
 const processUser = require('../../hooks/process-user');
 const usersResponse = require('../../hooks/users-response');
-const hideMethod = require('../../hooks/hide-method');
+//const hideMethod = require('../../hooks/hide-method');
 
 module.exports = {
   before: {
@@ -16,7 +16,7 @@ module.exports = {
     create: [ hashPassword() ],
     update: [ hashPassword(),  authenticate('jwt') ],
     patch: [ hashPassword(),  authenticate('jwt') ],
-    remove: [ authenticate('jwt'),hideMethod() ]
+    remove: [ authenticate('jwt')/*,hideMethod()*/ ]
   },
 
   after: {

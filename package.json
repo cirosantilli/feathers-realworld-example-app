@@ -49,9 +49,13 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
+    "@feathersjs/authentication-client": "^1.0.11",
+    "@feathersjs/client": "^3.7.8",
+    "@feathersjs/rest-client": "^1.4.7",
     "eslint": "^5.11.1",
     "feathers-memory": "^3.0.2",
     "mocha": "^5.2.0",
+    "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
