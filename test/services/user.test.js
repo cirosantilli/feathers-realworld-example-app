@@ -33,7 +33,6 @@ describe('\'user\' service', () => {
       password: 'secret'
     }}, params);
 
-
     // Make sure password has been removed
     assert.ok(!user.password);
   });
@@ -43,7 +42,6 @@ describe('\'user\' service', () => {
     const params = { provider: 'rest' };
     //token = user.user.token;
     user = await app.service('user').find(user, params);
-
 
     // Make sure password has been removed
     assert.ok(!user.password);

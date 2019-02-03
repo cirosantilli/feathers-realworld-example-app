@@ -77,16 +77,89 @@ describe('\'articles\' service - client', () => {
 
       let slug = 'a-title_';
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
+      assert.deepEqual(article.article.body,'abody');
+      assert.deepEqual(article.article.description, 'adescription');
+      assert.deepEqual(article.article.favorited, false);
+      assert.deepEqual(article.article.favoritesCount, 0);
+      assert.deepEqual(article.article.tagList, ['one','two','three']);
+      assert.deepEqual(article.article.title, 'a title');
+      assert.deepEqual(article.article.author.username, 'testclient');
+      assert.deepEqual(article.article.author.following, false);
 
-      article = await app.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
 
-      assert.deepEqual(article.slug.slice(0,slug.length),slug);
+      assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
+      assert.deepEqual(article.article.body,'abody');
+      assert.deepEqual(article.article.description, 'adescription');
+      assert.deepEqual(article.article.favorited, false);
+      assert.deepEqual(article.article.favoritesCount, 0);
+      assert.deepEqual(article.article.tagList, ['one','two','three']);
+      assert.deepEqual(article.article.title, 'a title');
+      assert.deepEqual(article.article.author.username, 'testclient');
+      assert.deepEqual(article.article.author.following, false);
+
+    });
+
+    it('Updates the article and checks for the change', async () => {
+      await client.service('articles').update(article.article.slug,{article: {description: 'better description'}},{headers: {authorization: user.user.token}});
+
+      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+
+      let slug = 'a-title_';
+      assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
+      assert.deepEqual(article.article.body,'abody');
+      assert.deepEqual(article.article.description, 'better description');
+      assert.deepEqual(article.article.favorited, false);
+      assert.deepEqual(article.article.favoritesCount, 0);
+      assert.deepEqual(article.article.tagList, ['one','two','three']);
+      assert.deepEqual(article.article.title, 'a title');
+      assert.deepEqual(article.article.author.username, 'testclient');
+      assert.deepEqual(article.article.author.following, false);
+
+    });
+
+    it('Updates the author and checks for the change', async () => {
+      let user2 = await client.service('users').find({query: {username: user.user.username},headers: {authorization: user.user.token}});
+      await client.service('user').update(user2.data[0]._id,{user: {bio: 'thebio', image: 'theimage'}},{headers: {authorization: user.user.token}});
+
+      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+
+      let slug = 'a-title_';
+      assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
+      assert.deepEqual(article.article.body,'abody');
+      assert.deepEqual(article.article.description, 'better description');
+      assert.deepEqual(article.article.favorited, false);
+      assert.deepEqual(article.article.favoritesCount, 0);
+      assert.deepEqual(article.article.tagList, ['one','two','three']);
+      assert.deepEqual(article.article.title, 'a title');
+      assert.deepEqual(article.article.author.username, 'testclient');
+      assert.deepEqual(article.article.author.following, false);
+      assert.deepEqual(article.article.author.bio, 'thebio');
+      assert.deepEqual(article.article.author.image, 'theimage');
+
+    });
+
+    it('Updates the article title and checks for the change to title and slug', async () => {
+      article = await client.service('articles').update(article.article.slug,{article: {title: 'a new title'}},{headers: {authorization: user.user.token}});
+
+      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+
+      let slug = 'a-new-title_';
+      assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
+      assert.deepEqual(article.article.body,'abody');
+      assert.deepEqual(article.article.description, 'better description');
+      assert.deepEqual(article.article.favorited, false);
+      assert.deepEqual(article.article.favoritesCount, 0);
+      assert.deepEqual(article.article.tagList, ['one','two','three']);
+      assert.deepEqual(article.article.title, 'a new title');
+      assert.deepEqual(article.article.author.username, 'testclient');
+      assert.deepEqual(article.article.author.following, false);
 
     });
 
     it('cleans up', async () => {
 
-      await app.service('articles').remove(article.slug,{headers: {authorization: user.user.token}});
+      await app.service('articles').remove(article.article.slug,{headers: {authorization: user.user.token}});
 
       let user2 = await client.service('users').find({query: {username: user.user.username},headers: {authorization: user.user.token}});
       await app.service('users').remove(user2.data[0]._id);
