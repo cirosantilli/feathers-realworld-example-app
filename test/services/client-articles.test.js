@@ -59,6 +59,10 @@ describe('\'articles\' service - client', () => {
       // Makes sure the password got encrypted
       assert.ok(user.password !== 'secret');
 
+    });
+
+    it('Logs in', async () => {
+
       user = await client.service('users/login').create({user: {
         email: email,
         password: password
