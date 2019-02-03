@@ -55,11 +55,5 @@ describe('\'users\' service', () => {
     await app.service('users').remove(user.data[0]._id);
     await app.service('users').remove(user2.data[0]._id);
 
-    // Clean up lingering user if present
-    user2 = await app.service('users').find({query: {username: 'testclient'}});
-    if (user2.data && user2.data.length) {
-      await app.service('users').remove(user2.data[0]._id);
-    }
-
   });
 });

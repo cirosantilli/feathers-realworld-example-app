@@ -88,6 +88,9 @@ describe('\'articles\' service - client', () => {
 
       await app.service('articles').remove(article.slug,{headers: {authorization: user.user.token}});
 
+      let user2 = await client.service('users').find({query: {username: user.user.username},headers: {authorization: user.user.token}});
+      await app.service('users').remove(user2.data[0]._id);
+
     });
   });
 });
