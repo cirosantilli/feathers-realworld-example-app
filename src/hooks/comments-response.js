@@ -6,19 +6,18 @@ const helpers = require('../common/helpers.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
   return async context => {
-    let resultdata = [];
     let result = {};
 
     if (context.result.errors) {
       return context;
     }
 
-    let resultdata2  = await getAuthors(context,resultdata);
+    let resultdata  = await getAuthors(context);
 
-    if (context.method == 'find' ||  resultdata2.length > 1) {
-      result.comments = resultdata2;
-    } else if (resultdata2.length > 0) {
-      result.comment = resultdata2[0];
+    if (context.method == 'find' ||  resultdata.length > 1) {
+      result.comments = resultdata;
+    } else if (resultdata.length > 0) {
+      result.comment = resultdata[0];
     } else {
       result.comments = [];
     }
@@ -28,7 +27,8 @@ module.exports = function (options = {}) {
   };
 };
 
-async function getAuthors(context,resultdata) {
+async function getAuthors(context) {
+  let resultdata = [];
   let theresult = context.result;
 
   if (!theresult.data) {
@@ -45,8 +45,8 @@ async function getAuthors(context,resultdata) {
 
   theresult.data.forEach(function(element) {
     let comment = element;
-    let theauthor = authors.data.find(function(element) {
-      return element._id.toString() == this.authorid;
+    let theauthor = authors.data.find(function(item) {
+      return item._id.toString() == this.authorid;
     },{authorid: comment.userId});
 
     if (theauthor) {

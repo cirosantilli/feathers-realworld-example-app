@@ -65,11 +65,11 @@ async function getAuthorsAndFavorite(context,thelist) {
 
   let authors = await getAuthors(context,authorids);
 
-  for (let index = 0; index < thelist.length; index++) {
-    let article = thelist[index];
-
-    let theauthor = authors.data.find(function(element) {
-      return element._id.toString() == this.authorid;
+  thelist.forEach(function(element) {
+    let article = element;
+    
+    let theauthor = authors.data.find(function(item) {
+      return item._id.toString() == this.authorid;
     },{authorid: article.userId});
 
     if (theauthor) {
@@ -83,7 +83,7 @@ async function getAuthorsAndFavorite(context,thelist) {
       delete article.commentid;
       resultdata.push(article);
     }
-  }
+  });
 
   return resultdata;
 }
