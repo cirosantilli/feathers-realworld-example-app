@@ -11,10 +11,7 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/follow', createService(options));
-
-  // re-export the posts service on the /users/:userId/posts route
-  app.use('/profiles/:username/follow', app.service('follow'));
+  app.use('/profiles/:username/follow', createService(options));
 
   // A hook that updates `data` with the route parameter
   function mapUserNameToData(context) {
@@ -23,7 +20,7 @@ module.exports = function (app) {
     }
   }
 
-  // For the new route, map the `:userId` route parameter to the query in a hook
+  // For the new route, map the `:username` route parameter to the query in a hook
   app.service('profiles/:username/follow').hooks({
     before: {
       find(context) {
@@ -35,7 +32,7 @@ module.exports = function (app) {
   });
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('follow');
+  const service = app.service('profiles/:username/follow');
   service.setup(app);
 
   service.hooks(hooks);

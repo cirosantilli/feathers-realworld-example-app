@@ -11,10 +11,7 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/comments', createService(options));
-
-  // re-export the posts service on the /users/:userId/posts route
-  app.use('/articles/:slug/comments', app.service('comments'));
+  app.use('/articles/:slug/comments', createService(options));
 
   // A hook that updates `data` with the route parameter
   function mapSlugToData(context) {
@@ -23,7 +20,7 @@ module.exports = function (app) {
     }
   }
 
-  // For the new route, map the `:userId` route parameter to the query in a hook
+  // For the new route, map the :slug route parameter to the query in a hook
   app.service('articles/:slug/comments').hooks({
     before: {
       find(context) {
@@ -35,7 +32,7 @@ module.exports = function (app) {
   });
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('comments');
+  const service = app.service('articles/:slug/comments');
   service.setup(app);
 
   service.hooks(hooks);
