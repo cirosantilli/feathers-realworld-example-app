@@ -2,10 +2,10 @@ const users = require('./users/users.service.js');
 const articles = require('./articles/articles.service.js');
 const user = require('./user/user.service.js');
 const profiles = require('./profiles/profiles.service.js');
-const follow = require('./follow/follow.service.js');
-const favorite = require('./favorite/favorite.service.js');
+const follow = require('./articles/follow/follow.service.js');
+const favorite = require('./articles/favorite/favorite.service.js');
 const articlecomments = require('./articlecomments/articlecomments.service.js');
-const comments = require('./comments/comments.service.js');
+const comments = require('./articles/comments/comments.service.js');
 const tags = require('./tags/tags.service.js');
 const articlesFeed = require('./articles/feed/feed.service.js');
 // eslint-disable-next-line no-unused-vars

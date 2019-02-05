@@ -1,7 +1,7 @@
 // Initializes the `favorite` service on path `/favorite`
 const createService = require('./favorite.class.js');
 const hooks = require('./favorite.hooks');
-const articleResponse = require('../../middleware/article-response');
+const articleResponse = require('../../../middleware/article-response');
 
 module.exports = function (app) {
 

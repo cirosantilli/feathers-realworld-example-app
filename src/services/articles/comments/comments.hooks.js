@@ -1,7 +1,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const commentsResponse = require('../../hooks/comments-response');
-const authenticateif = require('../../hooks/authenticateif');
+const commentsResponse = require('../../../hooks/comments-response');
+const authenticateif = require('../../../hooks/authenticateif');
 
 module.exports = {
   before: {

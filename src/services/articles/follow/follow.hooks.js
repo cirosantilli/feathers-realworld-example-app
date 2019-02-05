@@ -1,6 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const followResponse = require('../../hooks/follow-response');
+const followResponse = require('../../../hooks/follow-response');
 
 module.exports = {
   before: {

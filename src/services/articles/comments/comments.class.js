@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-const helpers = require('../../common/helpers.js');
+const helpers = require('../../../common/helpers.js');
 const ferrors = require('@feathersjs/errors');
 
 class Service {
