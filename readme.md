@@ -35,4 +35,4 @@ To get the Feathers server running locally:
 - Clone this repo
 - `npm install` to install all required dependencies
 - Set environment variable MONGODB_FEATHERS_REALWORLD to the connection string for your mongodb instance (You can install a community edition [instructions](https://docs.mongodb.com/manual/installation/#tutorials) or create an instance on mLab: [instructions](https://docs.mlab.com/)).
-- `npm start` to start the local server.
+- `npm start` to start the local server (or `npm test` to run tests).
