@@ -1,5 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const processResponse = require('../../hooks/process-response');
+const userResponse = require('../../hooks/user-response');
 
 const {
   protect
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   after: {
-    all: [processResponse(),
+    all: [userResponse(),
       // Make sure the password field is never sent to the client
       // Always must be the last hook
       protect('password')

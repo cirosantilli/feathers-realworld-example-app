@@ -45,6 +45,8 @@ describe('\'user\' service', () => {
 
     // Make sure password has been removed
     assert.ok(!user.password);
+    assert.ok(user.email === 'test@example.com');
+    assert.ok(user.username === 'test');
   });
 
   it('cleans up', async () => {

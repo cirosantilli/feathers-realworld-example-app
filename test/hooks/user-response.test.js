@@ -1,8 +1,8 @@
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
-const processResponse = require('../../src/hooks/process-response');
+const userResponse = require('../../src/hooks/user-response');
 
-describe('\'process-response\' hook', () => {
+describe('\'user-response\' hook', () => {
   let app;
 
   beforeEach(() => {
@@ -15,13 +15,13 @@ describe('\'process-response\' hook', () => {
     });
 
     app.service('dummy').hooks({
-      after: processResponse()
+      after: userResponse()
     });
   });
 
   it('runs the hook', async () => {
     const result = await app.service('dummy').get('test');
-    
+
     assert.deepEqual(result, { id: 'test' });
   });
 });
