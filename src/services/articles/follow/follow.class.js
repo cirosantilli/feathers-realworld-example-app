@@ -35,13 +35,13 @@ class Service {
     if (!user1.data || !user1.data.length) {
       throw new ferrors.NotFound('User not found');
     }
-    let userlist = params.user.followingList;
-    let index = helpers.findIndex(userlist,user1.data[0]._id);
+    let userList = params.user.followingList;
+    let index = helpers.findIndex(userList,user1.data[0]._id);
     if (index != -1){
-      userlist.splice(index,1);
+      userList.splice(index,1);
     }
     let user2 = {};
-    user2.followingList = userlist;
+    user2.followingList = userList;
     await this.app.service('users').patch(params.user._id,user2);
     params.user.followingList = user2.followingList;
     return user1;

@@ -12,12 +12,12 @@ module.exports = function (options = {}) {
       return context;
     }
 
-    let resultdata  = await getAuthors(context);
+    let resultData  = await getAuthors(context);
 
-    if (context.method == 'find' ||  resultdata.length > 1) {
-      result.comments = resultdata;
-    } else if (resultdata.length > 0) {
-      result.comment = resultdata[0];
+    if (context.method == 'find' ||  resultData.length > 1) {
+      result.comments = resultData;
+    } else if (resultData.length > 0) {
+      result.comment = resultData[0];
     } else {
       result.comments = [];
     }
@@ -28,22 +28,22 @@ module.exports = function (options = {}) {
 };
 
 async function getAuthors(context) {
-  let resultdata = [];
-  let theresult = context.result;
+  let resultData = [];
+  let theResult = context.result;
 
-  if (!theresult.data) {
-    theresult= {};
-    theresult.data = [context.result];
+  if (!theResult.data) {
+    theResult= {};
+    theResult.data = [context.result];
   }
 
   let authorids = [];
-  theresult.data.forEach(function(element) {
+  theResult.data.forEach(function(element) {
     authorids.push(element.userId);
   });
 
   let authors = await helpers.getAuthors(context,authorids);
 
-  theresult.data.forEach(function(element) {
+  theResult.data.forEach(function(element) {
     let comment = element;
     let theauthor = authors.data.find(function(item) {
       return item._id.toString() == this.authorid;
@@ -54,7 +54,7 @@ async function getAuthors(context) {
       if (context.params.user) {
         comment.author.following = helpers.findIndex(context.params.user.followingList,comment.userId) != -1 ? true : false;
       }
-      resultdata.push(comment);
+      resultData.push(comment);
     }
     delete comment.userId;
     delete comment.articleId;
@@ -62,5 +62,5 @@ async function getAuthors(context) {
 
   });
 
-  return resultdata;
+  return resultData;
 }

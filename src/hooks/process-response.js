@@ -14,7 +14,6 @@ module.exports = function (options = {}) {
           result.user.bio = result.user.bio ? result.user.bio : null;
           result.user.image = result.user.image ? result.user.image : null;
           delete result.user.password;
-          //result.user.token = context.result.accessToken;
           context.result = result;
         }
       }

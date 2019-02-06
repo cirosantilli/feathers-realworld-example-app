@@ -50,10 +50,9 @@ class Service {
       let comment = { body: data.comment.body};
       comment.articleId = article.data[0]._id;
       comment.userId = params.user._id;
-      comment.id = article.data[0].commentid ? article.data[0].commentid + 1 : 1;
-      let articlenew = {commentid: comment.id};
+      comment.id = article.data[0].commentId ? article.data[0].commentId + 1 : 1;
 
-      let articlepatched = await this.app.service('articles').patch(article.data[0]._id,articlenew);
+      let articlepatched = await this.app.service('articles').patch(article.data[0]._id,{commentId: comment.id});
       return this.app.service('articlecomments').create(comment);
     }
     throw new ferrors.NotFound('Article: ' + data.slug + ' not found');
