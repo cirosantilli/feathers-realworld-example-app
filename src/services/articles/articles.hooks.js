@@ -13,6 +13,8 @@ const articleDelete = require('../../hooks/article-delete');
 
 const authenticateif = require('../../hooks/authenticateif');
 
+const articleDeleteResponse = require('../../hooks/article-delete-response');
+
 module.exports = {
   before: {
     all: [],
@@ -31,7 +33,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [articleDeleteResponse()]
   },
 
   error: {

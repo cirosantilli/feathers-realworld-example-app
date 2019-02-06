@@ -10,7 +10,8 @@ module.exports = function (app) {
   const options = {
     Model,
     lean: true,
-    paginate
+    paginate,
+    multi: ['remove']
   };
 
   // Initialize our service with any options it requires
