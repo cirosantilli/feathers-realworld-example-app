@@ -7,4 +7,4 @@ services: mongodb
 before_script:
   - sleep 15
   - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
-  - export MONGODB_FEATHERS_REALWORLD="127.0.0.1://travis:test@mydb_test"
+  - export MONGODB_FEATHERS_REALWORLD="mongodb://travis:test@127.0.0.1:27017/mydb_test"
