@@ -6,8 +6,8 @@ module.exports = function (options = {}) {
   return async context => {
     if (context.data) {
 
-      if (context.method == 'update' || context.method == 'find') {
-        if (context.path == 'user' && !context.result.user) {
+      if (context.method === 'update' || context.method === 'find') {
+        if (context.path === 'user' && !context.result.user) {
           let result = {};
           result.user = context.result;
           result.user.token = context.params.headers.authorization;

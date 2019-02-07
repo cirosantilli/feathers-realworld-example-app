@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = async function (req,res,next) {
 
-  if (req.method == 'POST') {
+  if (req.method === 'POST') {
     let authors =   await res.hook.app.service('users/login').create({
       user: {
         strategy: 'local',

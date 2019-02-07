@@ -12,6 +12,9 @@ module.exports = function (options = {}) {
     if (!article.data || ! article.data.length){
       throw new ferrors.NotFound('Article not found');
     }
+    if (article.data[0].userId.toString() != context.params.user._id){
+      throw new ferrors.Forbidden();
+    }
 
     if (context.data.article.title && context.data.article.title != article.data[0].title) {
       context.data.article.slug = helpers.getSlug(context.data.article.title);

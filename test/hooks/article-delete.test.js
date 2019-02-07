@@ -10,14 +10,14 @@ describe('\'article-delete\' hook', () => {
 
     app.use('/articles', {
       async find(data) {
-        return {data: [data]};
+        return {data: [{userId: 'ab1',data:data}]};
       },
       async get(data) {
         return {data};
       }
     });
     app.use('/dummy', {
-      async get(id) {
+      async remove(id) {
         return { id };
       },
       async create(data) {
@@ -32,7 +32,7 @@ describe('\'article-delete\' hook', () => {
 
   it('runs the hook', async () => {
 
-    await app.service('dummy').get('foo');
+    await app.service('dummy').remove('foo',{user: {_id: 'ab1'}});
 
     //assert.deepEqual(result, { id: 'test' });
   });

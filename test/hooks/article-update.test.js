@@ -10,7 +10,7 @@ describe('\'article-update\' hook', () => {
 
     app.use('/articles', {
       async find(data) {
-        return {data: [{_id: 1,title: data}]};
+        return {data: [{_id: 1,userId: 'ab1',title: data}]};
       },
       async patch(id,data) {
         return data;
@@ -35,7 +35,8 @@ describe('\'article-update\' hook', () => {
         description: 'Ever wonder how?',
         body: 'You have to believe'
       }
-    });
+    },
+    {user: {_id: 'ab1'}});
     assert.deepEqual(result.data[0].body,'You have to believe');
     assert.deepEqual(result.data[0].description, 'Ever wonder how?');
     let slug = 'How-to-train-your-dragon_';

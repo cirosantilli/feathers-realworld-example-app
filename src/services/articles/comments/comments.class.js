@@ -75,6 +75,9 @@ class Service {
       });
 
       if (comment.data && comment.data.length > 0) {
+        if (comment.data[0].userId.toString() != params.user._id){
+          throw new ferrors.Forbidden();
+        }
         return this.app.service('articlecomments').remove(comment.data[0]._id);
       }
     }

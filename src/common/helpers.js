@@ -67,7 +67,7 @@ async function getAuthorsAndFavorite(context,thelist) {
 
   thelist.forEach(function(element) {
     let article = element;
-    
+
     let theauthor = authors.data.find(function(item) {
       return item._id.toString() == this.authorid;
     },{authorid: article.userId});
@@ -80,7 +80,7 @@ async function getAuthorsAndFavorite(context,thelist) {
         article.favorited = article.favoritedList && findIndex(article.favoritedList,context.params.user._id) != -1 ? true : false;
       }
       delete article.favoritedList;
-      delete article.commentid;
+      delete article.commentId;
       resultdata.push(article);
     }
   });
