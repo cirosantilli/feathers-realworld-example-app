@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // Connect to your MongoDB instance(s) using env variable
 logger.info(process.env.MONGODB_FEATHERS_REALWORLD);
-mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true  });
 
 const middleware = require('./middleware');
 const services = require('./services');
