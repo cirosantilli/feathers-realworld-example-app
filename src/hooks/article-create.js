@@ -13,18 +13,16 @@ module.exports = function (options = {}) {
     context.data.article.commentid = 0;
 
     if (context.data.article.tagList) {
-      let tagret = await context.app.service('tags').find();
-
-      if (tagret.tags && tagret.tags.length > 0 ) {
-        tagret.tags =  Array.from(new Set(tagret.tags.concat(context.data.article.tagList)));
-        await context.app.service('tags').update(tagret._id,tagret);
-      } else {
-        let tags = {};
-        tags.tags = context.data.article.tagList;
-        await context.app.service('tags').create(tags);
-      }
+      context.data.article.tagList.forEach(async function(tag) {
+        let tagret = await context.app.service('tags').find({query: {name: tag}});
+        if (tagret && tagret.data && tagret.data.length) {
+          tagret.data[0].popularity = tagret.data[0].popularity +1;
+          await context.app.service('tags').update(tagret.data[0]._id,tagret.data[0]);
+        } else {
+          await context.app.service('tags').create({name: tag, popularity: 1});
+        }
+      });
     }
-
     context.data = context.data.article;
 
     return context;

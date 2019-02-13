@@ -1,12 +1,12 @@
 
-
-const tagResponse = require('../../hooks/tag-response');
 const hideMethod = require('../../hooks/hide-method');
+
+const tagFind = require('../../hooks/tag-find');
 
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [tagFind()],
     get: [],
     create: [hideMethod()],
     update: [hideMethod()],
@@ -16,8 +16,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [tagResponse()],
-    get: [tagResponse()],
+    find: [],
+    get: [],
     create: [],
     update: [],
     patch: [],

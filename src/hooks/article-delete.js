@@ -14,6 +14,19 @@ module.exports = function (options = {}) {
         throw new ferrors.Forbidden();
       }
       context.id = article.data[0]._id;
+      if (article.data[0].tagList) {
+        article.data[0].tagList.forEach(async function(tag) {
+          let tagret = await context.app.service('tags').find({query: {name: tag}});
+          if (tagret && tagret.data && tagret.data.length) {
+            if (tagret.data[0].popularity <= 1) {
+              await context.app.service('tags').remove(tagret.data[0]._id);
+            } else {
+              tagret.data[0].popularity = tagret.data[0].popularity -1;
+              await context.app.service('tags').update(tagret.data[0]._id,tagret.data[0]);
+            }
+          }
+        });
+      }
     } else {
       throw new ferrors.NotFound('Article not found');
     }

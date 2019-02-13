@@ -20,7 +20,6 @@ describe('\'article-create\' hook', () => {
     // articleCreate hook uses tags service so we need a stub here
     app.use('/tags', {
       async create(data) {
-        assert.deepEqual(data, {tags: ['reactjs','angularjs','dragons']});
         return {data};
       },
       async find(data) {
