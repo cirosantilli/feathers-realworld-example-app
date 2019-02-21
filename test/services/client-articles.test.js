@@ -45,6 +45,7 @@ describe('\'articles\' service - client', () => {
   describe('Run tests using client and server', () => {
 
     it('registered the service', () => {
+
       const service = client.service('users');
       assert.ok(service, 'Registered the client service');
     });
@@ -63,21 +64,22 @@ describe('\'articles\' service - client', () => {
 
     it('Logs in', async () => {
 
-      user = await client.service('users/login').create({user: {
+      /*user = await client.service('users/login').create({user: {
         email: email,
         password: password
-      }});
+      }});*/
 
-      /*user = await client.authenticate({
+      user = await client.authenticate({
         strategy: 'local',
         email,
         password
-      });*/
+      });
 
     });
 
     it('Creates an Article', async () => {
-      article = await client.service('articles').create({article: {title: 'a title', description: 'adescription', body: 'abody', tagList: ['one','two','three']}},{headers: {authorization: user.user.token}});
+
+      article = await client.service('articles').create({article: {title: 'a title', description: 'adescription', body: 'abody', tagList: ['one','two','three']}});
 
       let slug = 'a-title_';
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
@@ -90,7 +92,7 @@ describe('\'articles\' service - client', () => {
       assert.deepEqual(article.article.author.username, 'testclient');
       assert.deepEqual(article.article.author.following, false);
 
-      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+      article = await client.service('articles').get(article.article.slug);
 
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
       assert.deepEqual(article.article.body,'abody');
@@ -105,9 +107,9 @@ describe('\'articles\' service - client', () => {
     });
 
     it('Updates the article and checks for the change', async () => {
-      await client.service('articles').update(article.article.slug,{article: {description: 'better description'}},{headers: {authorization: user.user.token}});
+      await client.service('articles').update(article.article.slug,{article: {description: 'better description'}});
 
-      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+      article = await client.service('articles').get(article.article.slug);
 
       let slug = 'a-title_';
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
@@ -123,10 +125,10 @@ describe('\'articles\' service - client', () => {
     });
 
     it('Updates the author and checks for the change', async () => {
-      let user2 = await client.service('users').find({query: {username: user.user.username},headers: {authorization: user.user.token}});
-      await client.service('user').update(user2.data[0]._id,{user: {bio: 'thebio', image: 'theimage'}},{headers: {authorization: user.user.token}});
+      let user2 = await client.service('users').find({query: {username: user.user.username}});
+      await client.service('user').update(user2.data[0]._id,{user: {bio: 'thebio', image: 'theimage'}});
 
-      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+      article = await client.service('articles').get(article.article.slug);
 
       let slug = 'a-title_';
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
@@ -144,9 +146,9 @@ describe('\'articles\' service - client', () => {
     });
 
     it('Updates the article title and checks for the change to title and slug', async () => {
-      article = await client.service('articles').update(article.article.slug,{article: {title: 'a new title'}},{headers: {authorization: user.user.token}});
+      article = await client.service('articles').update(article.article.slug,{article: {title: 'a new title'}});
 
-      article = await client.service('articles').get(article.article.slug,{headers: {authorization: user.user.token}});
+      article = await client.service('articles').get(article.article.slug);
 
       let slug = 'a-new-title_';
       assert.deepEqual(article.article.slug.slice(0,slug.length),slug);
@@ -163,9 +165,9 @@ describe('\'articles\' service - client', () => {
 
     it('cleans up', async () => {
 
-      await client.service('articles').remove(article.article.slug,{headers: {authorization: user.user.token}});
+      await client.service('articles').remove(article.article.slug);
 
-      let user2 = await client.service('users').find({query: {username: user.user.username},headers: {authorization: user.user.token}});
+      let user2 = await client.service('users').find({query: {username: user.user.username}});
       await app.service('users').remove(user2.data[0]._id);
 
     });
@@ -178,10 +180,18 @@ async function makeClient() {
   const rest = feathersClient('http://localhost:3030');
   client.configure(rest.fetch(fetch));
   client.configure(auth({
-    path: 'users/login',
+    path: '/users/login',
     storage: localStorage()
   }));
-
+  // Make the authentication work
+  client.service('/users/login').hooks({
+    after: {
+      all(hook) {
+        Object.assign(hook.result, { accessToken: `Token ${hook.result.user.token}` });
+        return Promise.resolve(hook);
+      },
+    },
+  });
   return client;
 }
 

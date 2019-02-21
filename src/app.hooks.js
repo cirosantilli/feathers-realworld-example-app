@@ -4,9 +4,12 @@ const log = require('./hooks/log');
 const errorsResponse = require('./hooks/errors-response');
 
 
+const extractToken = require('./hooks/extract-token');
+
+
 module.exports = {
   before: {
-    all: [ log() ],
+    all: [log(), extractToken()],
     find: [],
     get: [],
     create: [],

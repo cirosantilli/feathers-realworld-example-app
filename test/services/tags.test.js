@@ -18,7 +18,6 @@ describe('\'tags\' service', () => {
     assert.ok(service, 'Registered the service');
   });
 
-  //this.timeout(10000);
   let server;
   let client;
 
@@ -138,7 +137,38 @@ describe('\'tags\' service', () => {
       let tags = await client.service('tags').find();
       assert.ok(tags.tags.length === 1);
       assert.ok(tags.tags[0] === 'tagtwo');
+
     });
+
+
+    /*function fillTests() {
+      let thetests = [];
+      for (let i = 0; i < 450; i++) {
+        thetests.push({title: 'title' + i.toString(), description: 'description', body: 'body', tagList: ['taga' + i.toString(), 'tagb' + i.toString(),'atag']});
+      }
+      return thetests;
+    }
+
+    let tests = fillTests();
+    let articles = [];
+
+    tests.forEach(function(test) {
+      it('In Loop Creates an Article with tags' , async () => {
+        article = await client.service('articles').create({article: {title: test.title, description: test.description, body: test.body, tagList: test.tagList}},{headers: {authorization: user.user.token}});
+        articles.push(article);
+        assert.deepEqual(article.article.tagList, test.tagList);
+
+      });
+    });
+
+    tests.forEach(function(test,index) {
+      it('In Loop cleans up first article and checks tags', async () => {
+
+        await client.service('articles').remove(articles[index].article.slug,{headers: {authorization: user.user.token}});
+
+        assert.deepEqual(articles[index].article.tagList, test.tagList);
+      });
+    });*/
 
     it('cleans up fourth article and checks tags and cleans up user', async () => {
 
