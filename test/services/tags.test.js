@@ -187,7 +187,7 @@ describe('\'tags\' service', () => {
 async function makeClient() {
   var client = feathers();
   // Configure the REST client to use 'node-fetch'
-  const rest = feathersClient('http://localhost:3030');
+  const rest = feathersClient(`http://localhost:${port}`);
   client.configure(rest.fetch(fetch));
   client.configure(auth({
     path: 'users/login',
