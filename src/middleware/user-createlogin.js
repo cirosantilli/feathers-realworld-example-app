@@ -3,7 +3,7 @@
 module.exports = async function (req,res,next) {
 
   if (req.method === 'POST') {
-    let authors =   await res.hook.app.service('users/login').create({
+    let authors =   await res.hook.app.service('login').create({
       user: {
         strategy: 'local',
         email: req.body.user.email,

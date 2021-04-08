@@ -4,6 +4,7 @@ const compress = require('compression');
 const cors = require('cors');
 const favicon = require('serve-favicon');
 const helmet = require('helmet');
+
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -29,7 +30,9 @@ mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true,
 // Load app configuration
 app.configure(configuration());
 // Enable security, CORS, compression, favicon and body parsing
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
 app.use(cors());
 app.use(compress());
 app.use(express.json());

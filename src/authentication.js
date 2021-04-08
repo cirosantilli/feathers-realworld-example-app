@@ -1,37 +1,30 @@
-const authentication = require('@feathersjs/authentication');
-const jwt = require('@feathersjs/authentication-jwt');
-const local = require('@feathersjs/authentication-local');
-const authenticate = require('./hooks/authenticate');
-const authenticateResponse = require('./hooks/authenticate-response');
+const { AuthenticationService, JWTStrategy } = require('@feathersjs/authentication');
+const { LocalStrategy } = require('@feathersjs/authentication-local');
+const { expressOauth, OAuthStrategy } = require('@feathersjs/authentication-oauth');
 
+class GitHubStrategy extends OAuthStrategy {
+  async getEntityData(profile) {
+    const baseData = await super.getEntityData(profile);
 
-module.exports = function (app) {
-  const config = app.get('authentication');
-  // Set up authentication with the secret
-  app.configure(authentication(config));
-  app.configure(jwt());
-  app.configure(local());
-  app.service('users/login');
-  // The `authentication` service is used to create a JWT.
-  // The before `create` hook registers strategies that can be used
-  // to create a new valid JWT (e.g. local or oauth2)
-  // RealWorld use users/login
-  app.service('users/login').hooks({
-    before: {
-      create: [
-        authenticate(),
-        authentication.hooks.authenticate(config.strategies),
+    return {
+      ...baseData,
+      // You can also set the display name to profile.name
+      name: profile.login,
+      // The GitHub profile image
+      avatar: profile.avatar_url,
+      // The user email address (if available)
+      email: profile.email
+    };
+  }
+}
 
-      ],
-      remove: [
-        authentication.hooks.authenticate('jwt')
-      ]
-    },
-    after: {
-      create: [
-        authenticateResponse()
-      ]
-    }
-  });
+module.exports = app => {
+  const authentication = new AuthenticationService(app);
 
+  authentication.register('jwt', new JWTStrategy());
+  authentication.register('local', new LocalStrategy());
+  authentication.register('github', new GitHubStrategy());
+
+  app.use('/authentication', authentication);
+  app.configure(expressOauth());
 };

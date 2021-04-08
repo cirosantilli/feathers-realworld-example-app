@@ -16,7 +16,9 @@ Forked from https://github.com/randyscotsmithey/feathers-realworld-example-app a
 * a more direct integration with https://github.com/gothinkster/react-redux-realworld-example-app[]:
 ** `npm start` starts both front and backend properly linked without any further configuration
 ** clearer deployment instructions on how to extract the final built static components
-** later on might add SSR too
+** later on might add as well:
+*** SSR
+*** realtime functionality
 * port from MongoDB to sequelize because:
 ** MongoDB has serious licencing burden, and was removed from several convenient distros
 ** sequelize runs on SQLite locally and on a real database remotelly, which dispenses the need for local server management which is a pain
