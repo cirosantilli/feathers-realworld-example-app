@@ -30,5 +30,5 @@
       "passwordField": "password"
     }
   },
-  "nedb": "../data"
+  "MONGODB_FEATHERS_REALWORLD": "mongodb://localhost:27017/feathers_realworld"
 }

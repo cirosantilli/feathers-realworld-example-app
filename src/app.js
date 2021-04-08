@@ -1,28 +1,30 @@
 const path = require('path');
-const favicon = require('serve-favicon');
+
 const compress = require('compression');
-const helmet = require('helmet');
 const cors = require('cors');
-const logger = require('./logger');
+const favicon = require('serve-favicon');
+const helmet = require('helmet');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-// Connect to your MongoDB instance(s) using env variable
-logger.info(process.env.MONGODB_FEATHERS_REALWORLD);
-mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true  });
-
+const appHooks = require('./app.hooks');
+const authentication = require('./authentication');
+const channels = require('./channels');
+const logger = require('./logger');
 const middleware = require('./middleware');
 const services = require('./services');
-const appHooks = require('./app.hooks');
-const channels = require('./channels');
-
-const authentication = require('./authentication');
 
 const app = express(feathers());
+
+// TODO this is possible on newer feathers.
+//logger.info(app.get('MONGODB_FEATHERS_REALWORLD'));
+//mongoose.connect(app.get('MONGODB_FEATHERS_REALWORLD'),{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true  });
+logger.info(process.env.MONGODB_FEATHERS_REALWORLD);
+mongoose.connect(process.env.MONGODB_FEATHERS_REALWORLD,{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true  });
 
 // Load app configuration
 app.configure(configuration());
