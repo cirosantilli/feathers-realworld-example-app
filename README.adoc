@@ -1,5 +1,23 @@
 = RealWorld App in FeathersJS
 
+I did not manage to get the authentication to work while porting feathers 4.5.11.
+
+I tried copying the chat app as much as possible, but I can't get it to work, it is currently failing with:
+
+....
+[1] error: NotAuthenticated: Not authenticated
+[1]     at new NotAuthenticated (/home/ciro/git/feathers-realworld-example-app/node_modules/@feathersjs/errors/lib/index.js:93:17)
+[1]     at /home/ciro/git/feathers-realworld-example-app/node_modules/@feathersjs/authentication/lib/hooks/authenticate.js:54:19
+[1]     at Generator.next (<anonymous>)
+[1]     at /home/ciro/git/feathers-realworld-example-app/node_modules/@feathersjs/authentication/lib/hooks/authenticate.js:8:71
+[1]     at new Promise (<anonymous>)
+[1]     at __awaiter (/home/ciro/git/feathers-realworld-example-app/node_modules/@feathersjs/authentication/lib/hooks/authenticate.js:4:12)
+[1]     at Object.<anonymous> (/home/ciro/git/feathers-realworld-example-app/node_modules/@feathersjs/authentication/lib/hooks/authenticate.js:27:25)
+[1]     at /home/ciro/git/feathers-realworld-example-app/node_modules/@feathersjs/feathers/node_modules/@feathersjs/commons/lib/hooks.js:116:46
+....
+
+after you create an account and login, this fails while fetching articles.
+
 Run:
 
 ....

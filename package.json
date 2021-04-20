@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@feathersjs/authentication": "^4.5.11",
-    "@feathersjs/authentication-jwt": "^2.0.9",
     "@feathersjs/authentication-local": "^4.5.11",
     "@feathersjs/authentication-oauth": "^4.5.11",
     "@feathersjs/configuration": "^4.5.11",

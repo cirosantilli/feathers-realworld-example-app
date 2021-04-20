@@ -8,24 +8,23 @@
   },
   "authentication": {
     "secret": "2f976e4551984a082c03c139b96fba7981a2505557ccebace51b98b457195f79c013904a3a093378c6d11b94da32bf4705024d74b20429aa138843fca7413093806c016b14f2f4c33e59c89cf1ad7da62dc5bae22d41b5e43db0f0c95fc683a64eb8017536aa1c45e54545a82932d307f8ef591b3a85047708aec7d020a972c328b654799dc5ec88d28f4fa72dffbb8719c79888f5ed1e8f0641c55bf1104112a7348531f59fa2f68259337e75c0fa0850cc340c3d8ba07baadb80e1a9e41fee4fe7f7ae7695d007f89bb04a25f91bf72fb1eeddc1100b8e9bb6a553402a652c586daf7330579b6246b73951460c488e3278f414602446af70e4b2671b5e927d",
-    "strategies": [
+    "authStrategies": [
       "jwt",
       "local"
     ],
     "path": "/users/login",
+    "entity": "user",
     "service": "users",
-    "jwt": {
+    "jwtOptions": {
       "header": {
         "typ": "access"
       },
       "audience": "https://yourdomain.com",
-      "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
     "local": {
-      "entity": "user",
       "usernameField": "email",
       "passwordField": "password"
     }
